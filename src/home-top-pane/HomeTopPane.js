@@ -15,7 +15,7 @@ class HomeTopPane extends Component {
             <nav className="navbar navbar-light bg-light justify-content-between">
                 {/* eslint-disable-next-line */}
                 <a className="navbar-brand"><strong>Discussion Forum</strong></a>
-                <form className="form-inline">
+                <div className="form-inline">
                     {this.state.userAuthenticated && !this.state.hideCreateDiscussion &&
                         <button className="btn btn-outline-primary my-2 my-sm-0 mr-10" onClick={() => history.push("/discussions-list/discussions/create-discussion")}>Create Discussion</button>
                     }
@@ -23,7 +23,7 @@ class HomeTopPane extends Component {
                         ? <button className="btn btn-outline-danger my-2 my-sm-0" onClick={this.onLogout.bind(this)}>SignOut</button>
                         : <button className="btn btn-outline-success my-2 my-sm-0" onClick={() => history.push("/accounts/signin")}>SignIn</button>
                     }
-                </form>
+                </div>
             </nav>
         )
     }
@@ -45,7 +45,12 @@ class HomeTopPane extends Component {
                 if(response.STATUS === "LOGOUT SUCCESSFUL") {
                     VerifiedUser.clearAuthenticatedUser();
                     history.push("/accounts/signin");
-                    history.go();
+                } else if (response.STATUS === "UNAUTHORIZED") {
+                    alert("Kindly Login and Try again");
+                    window.location.reload();
+                } else {
+                    alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
             }).catch((error) => {
                 console.log(error);

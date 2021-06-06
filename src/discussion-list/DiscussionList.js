@@ -60,9 +60,11 @@ class DiscussionList extends Component {
                     this.setState({discussionsData: data});
                 } else {
                     alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
             } else {
                 alert("Something went wrong! Kindly try again");
+                window.location.reload();
             }
         }).catch((error) => {
             console.log(error);

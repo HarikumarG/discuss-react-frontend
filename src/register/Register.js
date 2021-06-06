@@ -12,7 +12,7 @@ class Register extends Component {
             password: '',
         };
         if(VerifiedUser.authUser.user_id) {
-            history.goBack();
+            history.push("/discussions-list/discussions");
         }
     }
 
@@ -84,6 +84,12 @@ class Register extends Component {
         }).then(res => res.json()).then((response) => {
             if(response.STATUS === "REGISTRATION SUCCESSFUL") {
                 history.push("/accounts/signin");
+            } else if (response.STATUS === "ACCOUNT ALREADY EXISTS") {
+                alert("Account already exists!");
+                window.location.reload();
+            } else {
+                alert("Something went wrong! Kindly try again");
+                window.location.reload();
             }
         }).catch((error) => {
             console.log(error);

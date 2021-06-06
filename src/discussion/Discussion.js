@@ -110,9 +110,11 @@ class Discussion extends Component {
                     });
                 } else {
                     alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
             } else {
                 alert("Something went wrong! Kindly try again");
+                window.location.reload();
             }
         }).catch((error) => {
             console.log(error);
@@ -145,6 +147,12 @@ class Discussion extends Component {
             fetch(url, request).then(res => res.json()).then((response) => {
                 if(response.STATUS === "SUCCESS") {
                     this.componentDidMount();
+                } else if (response.STATUS === "UNAUTHORIZED") {
+                    alert("Kindly Login and Try again");
+                    window.location.reload();
+                } else {
+                    alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
             }).catch((error) => {
                 console.log(error);

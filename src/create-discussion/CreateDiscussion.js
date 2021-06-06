@@ -10,6 +10,9 @@ class CreateDiscussion extends Component {
             topic_name: '',
             description: ''
         }
+        if(VerifiedUser.authUser.user_id === undefined) {
+            history.push("/accounts/signin");
+        }
     }
 
     render() {
@@ -90,6 +93,12 @@ class CreateDiscussion extends Component {
             fetch(url, request).then(res => res.json()).then((response) => {
                 if(response.STATUS === "SUCCESS") {
                     history.push("/discussions-list/discussions");
+                } else if (response.STATUS === "UNAUTHORIZED") {
+                    alert("Kindly Login and Try again");
+                    window.location.reload();
+                } else {
+                    alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
             }).catch((error) => {
                 console.log(error);

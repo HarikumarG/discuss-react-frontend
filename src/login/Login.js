@@ -11,7 +11,7 @@ class Login extends Component {
             password: '',
         };
         if(VerifiedUser.authUser.user_id) {
-            history.goBack();
+            history.push("/discussions-list/discussions");
         }
     }
     render() {
@@ -79,16 +79,17 @@ class Login extends Component {
                 let userInfo = response.DATA;
                 if(userInfo && userInfo._id && userInfo.user_name && userInfo.email_id && response.JWT_TOKEN) {
                     this.setAuthUser(userInfo,response.JWT_TOKEN);
-                    if(history.action === 'POP') {
-                        history.push("/discussions-list/discussions");
-                    } else {
-                        history.goBack();
-                    }
+                    history.push("/discussions-list/discussions");
                 } else {
                     alert("Something went wrong! Kindly try again");
+                    window.location.reload();
                 }
-            } else {
+            } else if(response.STATUS === "UNAUTHORIZED") {
                 alert("Incorrect Credentials");
+                window.location.reload();
+            } else {
+                alert("Something went wrong! Kindly try again");
+                window.location.reload();
             }
         }).catch((error) => {
             console.log(error);
