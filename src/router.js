@@ -9,6 +9,7 @@ import Discussion from './discussion/Discussion';
 const routes = () =>  (
                 <Router history={history}>
                     <Switch>
+                        <Route exact path="/" render={() => history.push("/accounts/signin")} />
                         <Route exact path="/accounts/signin" component={Login} />
                         <Route exact path="/accounts/signup" component={Register} />
                         <Route exact path="/discussions-list/discussions" component={DiscussionList} />
